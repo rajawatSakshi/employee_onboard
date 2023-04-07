@@ -3,17 +3,16 @@ from rest_framework.generics import ListAPIView,CreateAPIView,DestroyAPIView,Upd
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import get_user_model,authenticate
 from rest_framework import views, permissions
-# from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .serializors import ObtainTokenSerializer,OrganisationSerializer,DepartmentSerializer,RoleSerializer
-from .serializors import QuestionsSerializer,AnswersSerializer, UserSerializer, ObtainLoginSerializer
+from .serializors import QuestionsSerializer,AnswersSerializer, UserSerializer, ObtainLoginSerializer,NotificationsSerializer
 from .authentication import JWTAuthentication
-from .models import Users, Organisation, Department,Role,Questions, Answers
-import jwt
-from django.conf import settings
-from django.http import JsonResponse
-from rest_framework.views import APIView
-from datetime import datetime
+from .models import Users, Organisation, Department,Role,Questions, Answers,Notifications
+# import jwt
+# from django.conf import settings
+# from django.http import JsonResponse
+# from rest_framework.views import APIView
+# from datetime import datetime
 
 User = get_user_model()
 
@@ -256,6 +255,31 @@ class DeleteUserAPIView(DestroyAPIView):
     queryset = Users.objects.all()
     serializer_class = UserSerializer
 
+
+# Notification crud
+@permission_classes((permissions.IsAuthenticated, )) 
+class ListNotificationsAPIView(ListAPIView):
+    """This endpoint list all of the available todos from the database"""
+    queryset = Notifications.objects.all()
+    serializer_class = NotificationsSerializer
+
+@permission_classes((permissions.IsAuthenticated, )) 
+class CreateNotificationAPIView(CreateAPIView):
+    """This endpoint allows for creation of a todo"""
+    queryset = Notifications.objects.all()
+    serializer_class = NotificationsSerializer
+
+@permission_classes((permissions.IsAuthenticated, )) 
+class UpdateNotificationAPIView(UpdateAPIView):
+    """This endpoint allows for updating a specific todo by passing in the id of the todo to update"""
+    queryset = Notifications.objects.all()
+    serializer_class = NotificationsSerializer
+
+@permission_classes((permissions.IsAuthenticated, )) 
+class DeleteNotificationAPIView(DestroyAPIView):
+    """This endpoint allows for deletion of a specific Todo from the database"""
+    queryset = Notifications.objects.all()
+    serializer_class = NotificationsSerializer
 
 
 @permission_classes((permissions.IsAuthenticated, ))    

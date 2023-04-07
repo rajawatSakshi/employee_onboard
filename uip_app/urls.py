@@ -16,9 +16,9 @@ urlpatterns = [
 
     #department API
     path("department",views.ListDepartmentAPIView.as_view(),name="dep_list"),
-    path("create/", views.CreateDepartmentAPIView.as_view(),name="dep_create"),
-    path("update/<int:pk>/",views.UpdateDepartmentAPIView.as_view(),name="dep_update"),
-    path("delete/<int:pk>/",views.DeleteDepartmentAPIView.as_view(),name="dep_delete"), 
+    path("department_create/", views.CreateDepartmentAPIView.as_view(),name="dep_create"),
+    path("department_update/<int:pk>/",views.UpdateDepartmentAPIView.as_view(),name="dep_update"),
+    path("department_delete/<int:pk>/",views.DeleteDepartmentAPIView.as_view(),name="dep_delete"), 
 
     #role API
     path("role",views.ListRoleAPIView.as_view(),name="role_list"),
@@ -40,8 +40,15 @@ urlpatterns = [
 
 
     #User API
-    path("answers",views.ListUserAPIView.as_view(),name="answers_list"),
-    path("answers_create/", views.CreateUserAPIView.as_view(),name="answers_create"),
-    path("answers_update/<int:pk>/",views.UpdateUserAPIView.as_view(),name="answers_update"),
-    path("answers_delete/<int:pk>/",views.DeleteUserAPIView.as_view(),name="answers_delete"),
+    path("users",views.ListUserAPIView.as_view(),name="users_list"),
+    path("user_create/", views.CreateUserAPIView.as_view(),name="user_create"),
+    path("user_update/<int:pk>/",views.UpdateUserAPIView.as_view(),name="user_update"),
+    path("user_delete/<int:pk>/",views.DeleteUserAPIView.as_view(),name="user_delete"),
+
+
+    #Notifications API
+    path("Notifications",views.ListNotificationsAPIView.as_view(),name="notifications_list"),
+    path("Notifications_create/", views.CreateNotificationAPIView.as_view(),name="Notifications_create"),
+    path("Notifications_update/<int:pk>/",views.UpdateNotificationAPIView.as_view(),name="Notifications_update"),
+    path("Notifications_delete/<int:pk>/",views.DeleteNotificationAPIView.as_view(),name="Notifications_delete"),
 ]

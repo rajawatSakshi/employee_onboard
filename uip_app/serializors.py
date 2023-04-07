@@ -1,7 +1,7 @@
 # apps/management/api/serializers.py
 
 from rest_framework import serializers
-from .models import Users,Organisation,Department, Questions
+from .models import Users,Organisation,Department, Questions, Role,Answers,Notifications
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 
@@ -10,12 +10,13 @@ from rest_framework import serializers
 class ObtainTokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
-        fields = (
-            "employee_id",
-            "password",
-            "email",
-            "username"
-        )
+        fields = "__all__"  
+        # fields = (
+        #     "employee_id",
+        #     "password",
+        #     "email",
+        #     "username"
+        # )
 
 class ObtainLoginSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,22 +26,22 @@ class ObtainLoginSerializer(serializers.ModelSerializer):
             "password"
         )        
 
-class UserLoginSerializer(serializers.Serializer):
-    employee_id = serializers.CharField()
-    password = serializers.CharField()
+# class UserLoginSerializer(serializers.Serializer):
+#     employee_id = serializers.CharField()
+#     password = serializers.CharField()
 
-    def validate(self, data):
-        employee_id = data.get('employee_id')
-        password = data.get('password')
+#     def validate(self, data):
+#         employee_id = data.get('employee_id')
+#         password = data.get('password')
 
-        user = authenticate(employee_id=employee_id, password=password)
+#         user = authenticate(employee_id=employee_id, password=password)
 
-        if not user:
-            raise serializers.ValidationError('Invalid login credentials')
+#         if not user:
+#             raise serializers.ValidationError('Invalid login credentials')
 
-        data['user'] = Users
+#         data['user'] = Users
 
-        return data
+#         return data
 
 class OrganisationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -54,17 +55,17 @@ class DepartmentSerializer(serializers.ModelSerializer):
 
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Department
+        model = Role
         fields = "__all__"   
 
 class QuestionsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Department
+        model = Questions
         fields = "__all__"  
 
 class AnswersSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Department
+        model = Answers
         fields = "__all__"  
 
 class UserSerializer(serializers.ModelSerializer):
@@ -75,4 +76,9 @@ class UserSerializer(serializers.ModelSerializer):
             "password",
             "email",
             "username",
-        )        
+        )   
+
+class NotificationsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Users
+        fields = "__all__"            
